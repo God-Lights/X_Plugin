@@ -1,0 +1,13 @@
+name: edPlug
+version: '1.0-SNAPSHOT'
+main: edshin.edPlug.EdPlug
+api-version: '1.21'
+commands:
+  fly:
+    description: you can be fly mode!
+  food:
+    description: you can get a food!
+  test:
+    description: test!
+  test1:
+    description: test1!
