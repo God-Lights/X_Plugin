@@ -12,7 +12,7 @@ public class Fly implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-        if(sender instanceof Player) {
+        if(sender instanceof Player && sender.isOp()) {
             Player p = (Player)sender;
             if(!args[0].isBlank()) {
                 p.setAllowFlight(Boolean.parseBoolean(args[0]));

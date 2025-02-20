@@ -1,5 +1,7 @@
 package edshin.edPlug.Command;
 
+import edshin.edPlug.GUI.RECIPES;
+import edshin.edPlug.GUI.RecipeMain;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -15,6 +17,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BlockDataMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.awt.*;
 import java.util.*;
 
 import static net.kyori.adventure.text.Component.text;
@@ -38,16 +41,51 @@ public class Test implements CommandExecutor {
         interaction.setInteractionHeight((float)p.getHeight());
         interaction.addScoreboardTag("intercommand");
         */
-        ItemDisplay itemDisplay = p.getWorld().spawn(l, ItemDisplay.class);
+        if(p.isOp()) {
+            if(args[0].equals("sitem")) {
+                ItemDisplay itemDisplay = p.getWorld().spawn(l, ItemDisplay.class);
 
-        ItemStack itemStack = new ItemStack(Objects.requireNonNull(Material.getMaterial(args[0])));
-        itemDisplay.setItemStack(itemStack);
-        itemDisplay.setDisplayHeight(1f);
-        itemDisplay.setDisplayWidth(1f);
-        itemDisplay.setRotation(p.getYaw(),0);
-        itemDisplay.addScoreboardTag(args[1]);
-        Date date = new Date();
-        p.sendMessage(p.getClientBrandName()+"\n"+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()+"\n"+date.getTime());
+                ItemStack itemStack = new ItemStack(Objects.requireNonNull(Material.getMaterial(args[1])));
+                itemDisplay.setItemStack(itemStack);
+                itemDisplay.setDisplayHeight(1f);
+                itemDisplay.setDisplayWidth(1f);
+                itemDisplay.setRotation(p.getYaw(),0);
+                itemDisplay.addScoreboardTag(args[2]);
+                Date date = new Date();
+                p.sendMessage(p.getClientBrandName()+"\n"+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()+"\n"+date.getTime());
+            }
+            if(args[0].equals("gitem")) {
+                if(args[1].equals("light_dust")) {
+                    ItemStack lightDust = new ItemStack(Material.GLOWSTONE_DUST);
+                    ItemMeta ldMeta = lightDust.getItemMeta();
+                    ldMeta.setCustomModelData(103232);
+                    ldMeta.itemName(text("Light Dust"));
+                    ldMeta.setMaxStackSize(99);
+                    lightDust.setItemMeta(ldMeta);
+                    p.give(lightDust);
+                }
+                if(args[1].equals("light_shard")) {
+                    ItemStack lightShard = new ItemStack(Material.GLOWSTONE_DUST);
+                    ItemMeta lsMeta = lightShard.getItemMeta();
+                    lsMeta.setCustomModelData(113101);
+                    lsMeta.itemName(text("Light Shard"));
+                    lightShard.setItemMeta(lsMeta);
+                    p.give(lightShard);
+                }
+                if(args[1].equals("magic_shard")) {
+                    ItemStack magicShard = new ItemStack(Material.KNOWLEDGE_BOOK);
+                    ItemMeta msMeta = magicShard.getItemMeta();
+                    msMeta.setCustomModelData(112345);
+                    msMeta.itemName(text("Magic Shard"));
+                    magicShard.setItemMeta(msMeta);
+                    p.give(magicShard);
+                }
+            }
+        }
+        if(args[0].equals("recipe")) {
+            RECIPES recipes = new RECIPES();
+            recipes.open(p);
+        }
         return false;
     }
 }

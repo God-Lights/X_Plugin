@@ -40,6 +40,11 @@ tasks.withType(JavaCompile).configureEach {
     }
 }
 
+tasks.jar{
+    archiveFileName = 'EdPlugin.jar'
+    destinationDirectory = file('D:\\MC Server File\\1\\plugins')
+}
+
 processResources {
     def props = [version: version]
     inputs.properties props
