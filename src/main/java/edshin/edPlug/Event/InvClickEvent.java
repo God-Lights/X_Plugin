@@ -23,6 +23,12 @@ public class InvClickEvent implements Listener {
         ncmeta.setCustomModelData(100000);
         ncmeta.setHideTooltip(true);
         noclick.setItemMeta(ncmeta);
+        ItemStack lightDust = new ItemStack(Material.GLOWSTONE_DUST);
+        ItemMeta ldMeta = lightDust.getItemMeta();
+        ldMeta.setCustomModelData(103232);
+        ldMeta.itemName(text("Light Dust"));
+        ldMeta.setMaxStackSize(99);
+        lightDust.setItemMeta(ldMeta);
         ItemStack magicShard = new ItemStack(Material.KNOWLEDGE_BOOK);
         ItemMeta msMeta = magicShard.getItemMeta();
         msMeta.setCustomModelData(112345);
@@ -43,22 +49,6 @@ public class InvClickEvent implements Listener {
             if(e.getSlot() == 24) {
                 player.give(e.getCurrentItem());e.setCurrentItem(new ItemStack(Material.AIR));e.setCancelled(true);
             }
-            if(e.getClickedInventory().getItem(11).equals(new ItemStack(Material.DIAMOND_BLOCK)) && e.getClickedInventory().getItem(12).equals(new ItemStack(Material.DIAMOND_BLOCK)) && e.getClickedInventory().getItem(13).equals(new ItemStack(Material.DIAMOND_BLOCK))) {
-                if(e.getClickedInventory().getItem(20).equals(new ItemStack(Material.EMERALD)) && e.getClickedInventory().getItem(21).equals(new ItemStack(Material.ECHO_SHARD)) && e.getClickedInventory().getItem(22).equals(new ItemStack(Material.EMERALD))) {
-                    if(e.getClickedInventory().getItem(29).equals(new ItemStack(Material.EMERALD)) && e.getClickedInventory().getItem(30).equals(new ItemStack(Material.NETHER_STAR)) && e.getClickedInventory().getItem(31).equals(new ItemStack(Material.EMERALD))) {
-                        e.getClickedInventory().setItem(24,magicShard);
-                        e.getClickedInventory().setItem(11,null);
-                        e.getClickedInventory().setItem(12,null);
-                        e.getClickedInventory().setItem(13,null);
-                        e.getClickedInventory().setItem(20,null);
-                        e.getClickedInventory().setItem(21,null);
-                        e.getClickedInventory().setItem(22,null);
-                        e.getClickedInventory().setItem(29,null);
-                        e.getClickedInventory().setItem(30,null);
-                        e.getClickedInventory().setItem(31,null);
-                    }
-                }
-            }
         }
         if(ChatColor.stripColor(e.getView().getTitle()).equalsIgnoreCase("RECIPE-MAGICSHARD")) {
             e.setCancelled(true);
@@ -77,6 +67,18 @@ public class InvClickEvent implements Listener {
                 recipeLightShard.open(player);
                 e.setCancelled(true);
             }
+        }
+        if(ChatColor.stripColor(e.getView().getTitle()).equalsIgnoreCase("KKANG")) {
+            if(e.getCurrentItem().equals(lightDust)) {
+                ItemStack curItem = e.getCurrentItem();
+                ItemStack slotItem = e.getView().getItem(24);
+                e.getView().setItem(24,curItem);
+                e.setCurrentItem(slotItem);
+                e.setCancelled(true);
+            } else if(!e.getCurrentItem().isEmpty()){
+                e.setCancelled(true);
+            }
+
         }
     }
 }

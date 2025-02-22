@@ -5,6 +5,8 @@ import edshin.edPlug.Command.Food;
 import edshin.edPlug.Command.Test;
 import edshin.edPlug.Command.Test1;
 import edshin.edPlug.Event.InvClickEvent;
+import edshin.edPlug.Event.InvOpenEvent;
+import edshin.edPlug.GUI.KKANG;
 import edshin.edPlug.GUI.TestGUI;
 import org.bukkit.*;
 import org.bukkit.entity.Entity;
@@ -29,8 +31,10 @@ public final class EdPlug extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
+        getServer().clearRecipes();
         getServer().getPluginManager().registerEvents(this,this);
         getServer().getPluginManager().registerEvents(new InvClickEvent(),this);
+        getServer().getPluginManager().registerEvents(new InvOpenEvent(),this);
         // Plugin startup logic
         getServer().getConsoleSender().sendMessage("Plugin is allowed");
         getCommand("fly").setExecutor(new Fly());
@@ -52,8 +56,8 @@ public final class EdPlug extends JavaPlugin implements Listener {
         msMeta.itemName(text("Magic Shard"));
         magicShard.setItemMeta(msMeta);
         if(e.getItem().equals(magicShard)) {
-            TestGUI testGUI = new TestGUI();
-            testGUI.open(e.getPlayer());
+            KKANG kkang = new KKANG();
+            kkang.open(e.getPlayer());
         }
     }
 

@@ -2,6 +2,8 @@ package edshin.edPlug.Command;
 
 import edshin.edPlug.GUI.RECIPES;
 import edshin.edPlug.GUI.RecipeMain;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -20,6 +22,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.awt.*;
 import java.util.*;
 
+import static net.kyori.adventure.text.Component.selector;
 import static net.kyori.adventure.text.Component.text;
 
 public class Test implements CommandExecutor {
@@ -41,19 +44,18 @@ public class Test implements CommandExecutor {
         interaction.setInteractionHeight((float)p.getHeight());
         interaction.addScoreboardTag("intercommand");
         */
-        if(p.isOp()) {
-            if(args[0].equals("sitem")) {
-                ItemDisplay itemDisplay = p.getWorld().spawn(l, ItemDisplay.class);
+        if(args[0].equals("sitem")) {
+            ItemDisplay itemDisplay = p.getWorld().spawn(l, ItemDisplay.class);
 
-                ItemStack itemStack = new ItemStack(Objects.requireNonNull(Material.getMaterial(args[1])));
-                itemDisplay.setItemStack(itemStack);
-                itemDisplay.setDisplayHeight(1f);
-                itemDisplay.setDisplayWidth(1f);
-                itemDisplay.setRotation(p.getYaw(),0);
-                itemDisplay.addScoreboardTag(args[2]);
-                Date date = new Date();
-                p.sendMessage(p.getClientBrandName()+"\n"+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()+"\n"+date.getTime());
-            }
+            ItemStack itemStack = p.getItemInHand();
+            itemDisplay.setItemStack(itemStack);
+            itemDisplay.setDisplayHeight(1f);
+            itemDisplay.setDisplayWidth(1f);
+            itemDisplay.setRotation(p.getYaw(),0);
+            Date date = new Date();
+            p.sendMessage(p.getClientBrandName()+"\n"+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()+"\n"+date.getTime());
+        }
+        if(p.isOp()) {
             if(args[0].equals("gitem")) {
                 if(args[1].equals("light_dust")) {
                     ItemStack lightDust = new ItemStack(Material.GLOWSTONE_DUST);
@@ -85,6 +87,9 @@ public class Test implements CommandExecutor {
         if(args[0].equals("recipe")) {
             RECIPES recipes = new RECIPES();
             recipes.open(p);
+        }
+        if(args[0].equals("text")) {
+            p.sendMessage(text(p.getName()));
         }
         return false;
     }
